@@ -1,258 +1,254 @@
-# 📝 OS Labs Summary Notebook
+# OS Labs Summary Notebook
 
-A clean, practical summary of the provided OS Lab PDFs — organized by lab number and enriched with additional explanations, commands, tips, and best practices. This notebook is designed as a quick-reference guide for students or developers working with Ubuntu, shell scripting, version control, containerization, deployment, and more.
+# Lab 2: Ubuntu FileSystem Hierarchy
 
----
+## Key Concepts
+- The Ubuntu filesystem follows the Linux Filesystem Hierarchy Standard (FHS), with the root directory (/) as the top level.
+- Key directories:  
+  `/bin` (essential binaries), `/etc` (configuration files), `/home` (user home directories),  
+  `/var` (variable data like logs), `/usr` (user programs and data), `/tmp` (temporary files),  
+  `/boot` (boot loader files), `/lib` (system libraries), `/opt` (optional software), `/srv` (service data).
 
-## 📂 Lab 2 — Ubuntu FileSystem Hierarchy
+## Additional Explanations and Tips
+- The filesystem separates system files from user data for security and organization.  
+- Use **absolute paths** in scripts for reliability.  
+- For visualization, install and use `tree` to display directory structures.  
+- Backups should prioritize `/home` and `/etc`.  
+- Common issues: Permission errors — use `sudo` judiciously.
 
-### 🔑 Key Concepts from PDF
+## Useful Commands (Expanded)
 
-* Ubuntu follows the Linux Filesystem Hierarchy Standard (FHS).
-* The root directory `/` contains essential folders:
+| Command | Description | Example |
+|--------|-------------|---------|
+| ls | List directory contents | ls -la |
+| cd | Change directory | cd /etc |
+| pwd | Print working directory | pwd |
+| mkdir | Create directory | mkdir -p /path/to/new/dir |
+| rmdir | Remove empty directory | rmdir empty_dir |
+| rm | Remove files/directories | rm -rf dir |
+| cp | Copy files/directories | cp -r source dest |
+| mv | Move/rename files | mv old new |
+| touch | Create empty file or update timestamp | touch file.txt |
+| cat | Display files | cat file.txt |
+| less / more | Paginated view | less file.txt |
+| head / tail | View beginning/end | tail -f log.txt |
+| grep | Search text | grep "error" log.txt |
+| find | Search for files | find /home -name "*.txt" |
+| du | Disk usage | du -sh /var |
+| df | Disk free space | df -h |
+| chmod | Change permissions | chmod 755 script.sh |
+| chown | Change owner | chown user:group file |
+| ln | Create links | ln -s source link |
+| tar | Archive files | tar -czvf archive.tar.gz dir |
+| unzip / zip | Handle zip files | unzip file.zip |
 
-  * `/bin` → binaries
-  * `/etc` → configuration files
-  * `/home` → user data
-  * `/var` → logs / variable data
-  * `/usr` → user programs
-
-### 💡 Additional Explanations
-
-* Clear separation between system files and user files improves maintainability and security.
-* `/mnt` and `/media` are used for mounting external devices.
-* Use the `tree` command for visualizing directory structure.
-
-### 🧰 Useful Commands
-
-| Command                    | Description              | Example       |
-| -------------------------- | ------------------------ | ------------- |
-| `ls /`                     | List root directory      | —             |
-| `cd /etc`                  | Navigate to config files | `cd /etc; ls` |
-| `df -h`                    | Check disk usage         | —             |
-| `du -sh /var`              | Directory size           | —             |
-| `find /home -name "*.txt"` | Search for files         | —             |
-
-> Tip: Always use **absolute paths** in scripts to avoid path-related errors.
-
----
-
-## 🐟 Lab 3 — Fish Shell & Running C++ in Ubuntu
-
-### 🔑 Key Concepts from PDF
-
-* **Fish Shell** provides syntax highlighting, autosuggestions, tab completion, universal variables, and a clean syntax.
-* Install on Ubuntu:
-
-  ```bash
-  sudo apt update && sudo apt install fish
-  ```
-* Set Fish as default:
-
-  ```bash
-  chsh -s /usr/bin/fish
-  ```
-* **C++ Programs**:
-
-  * Install compiler: `sudo apt install g++`
-  * Compile: `g++ file.cpp -o output`
-  * Run: `./output`
-
-### 💡 Additional Explanations
-
-* Fish requires no `.bashrc` hacks — it works out of the box.
-* Use `-Wall` for warnings, `-O2` for optimization.
-* Bubble sort is slow (O(n²)); Merge/Quick sort are O(n log n) — use them for large inputs.
-
-### 🧙 Useful Fish Commands
-
-* `fish_add_path /usr/local/bin`
-* `abbr -a gcm 'git commit -m'`
-* `funced myfunc`
-
-### 🧩 C++ Compilation Flags
-
-| Flag         | Purpose       | Example                   |
-| ------------ | ------------- | ------------------------- |
-| `-std=c++11` | Enable C++11  | `g++ file.cpp -std=c++11` |
-| `-g`         | Debug symbols | `g++ -g file.cpp`         |
-| `-l<lib>`    | Link library  | `-lm`                     |
-
-### Example Merge Sort Snippet
-
-```cpp
-#include <iostream>
-#include <vector>
-
-void merge(std::vector<int>& arr, int l, int m, int r) { /* merge logic */ }
-
-void mergeSort(std::vector<int>& arr, int l, int r) {
-    if (l < r) {
-        int m = l + (r - l) / 2;
-        mergeSort(arr, l, m);
-        mergeSort(arr, m + 1, r);
-        merge(arr, l, m, r);
-    }
-}
-
-int main() {
-    // input → sort → output
-    return 0;
-}
-```
+**Tip:** Use pipes (`|`) and redirection (`>`, `>>`).  
+System info: `uname -a`, `lsb_release -a`.
 
 ---
 
-## 🧱 Lab 4 — Git
+# Lab 3: Fish Shell and Running C++ Programs in Ubuntu
 
-### 🔑 Key Concepts from PDF
+## Key Concepts
+- **Fish Shell:** User-friendly shell with syntax highlighting, autosuggestions, tab completion.
+- Install: `sudo apt update && sudo apt install fish`
+- Switch shell: `fish`
+- Make default: `chsh -s /usr/bin/fish`
+- C++: Install `g++`, compile with `g++ file.cpp -o output`, run with `./output`.
 
-* Git is a distributed VCS created by Linus Torvalds (2005).
-* Tracks snapshots, supports branches, merging, and remote repos like GitHub.
+## Additional Explanations and Tips
+- Fish simplifies scripting with intuitive syntax.
+- For C++, use flags to optimize or debug.
+- Sorting algorithms vary based on dataset size.
 
-### 💡 Additional Notes
+## Useful Fish Commands (Expanded)
 
-* Git stores full snapshots, not diffs → very efficient branching.
-* Useful for all project sizes.
+| Command | Description | Example |
+|---------|-------------|---------|
+| fish_add_path | Add to PATH permanently | fish_add_path /usr/local/bin |
+| abbr | Create abbreviations | abbr -a gcm 'git commit -m' |
+| funced | Edit function | funced myfunc |
+| set | Set variables | set -U myvar value |
+| functions | List functions | functions |
+| alias | Create aliases | alias ll 'ls -la' |
+| fish_config | Open web config | fish_config |
+| history | View command history | history |
 
-### 🧰 Essential Git Commands
+## C++ Compilation Commands
 
-| Command                     | Description           |
-| --------------------------- | --------------------- |
-| `git init`                  | Initialize repository |
-| `git add .`                 | Stage all changes     |
-| `git commit -m "msg"`       | Commit snapshot       |
-| `git remote add origin URL` | Add GitHub remote     |
-| `git push -u origin main`   | First push            |
-| `git pull`                  | Fetch + merge         |
-| `git branch`                | List branches         |
-| `git merge branch`          | Merge changes         |
-| `git log --oneline`         | Short log             |
-| `git status`                | Check repo status     |
-
-> Tip: Always use a `.gitignore`. Commit often. Use clear, meaningful messages.
-
----
-
-## 🧩 Lab 5 — Git in VS Code
-
-### 🔑 Key Concepts from PDF
-
-* Clone using Command Palette (`Ctrl+Shift+P`)
-* Initialize repo (like `git init`)
-* Stage, commit, push, pull directly inside VS Code
-* Diff view highlights changes
-* Timeline shows file history
-* Branch management via status bar
-
-### 💡 Additional Tips
-
-* Install **GitLens** for advanced history & blame features.
-* Always **pull before pushing** to avoid conflicts.
-
-### VS Code Git Shortcuts
-
-* `Ctrl + Shift + G` → Source Control
-* Use **+ button** to stage changes
-* Inline conflict resolver during merges
+| Command/Flag | Description | Example |
+|--------------|-------------|---------|
+| g++ | Compile | g++ file.cpp -o out |
+| -std=c++11 | Standard | g++ -std=c++11 file.cpp -o out |
+| -Wall | Warnings | g++ -Wall file.cpp -o out |
+| -O2 | Optimize | g++ -O2 file.cpp -o out |
+| -g | Debug info | g++ -g file.cpp -o out |
+| gdb | Debug | gdb ./out |
+| ./out | Run | ./out < input.txt |
 
 ---
 
-## 🐳 Lab 7 — Docker
+# Lab 4: Git
 
-### 🔑 Key Concepts from PDF
+## Key Concepts
+- Git: Distributed VCS created by Linus Torvalds in 2005.
 
-* Docker provides lightweight containers for consistent environments.
-* Common commands: pull, images, rmi, build, run, ps, stop, logs, stats.
-* Dockerfile fundamentals: `FROM`, `RUN`, `COPY`, `WORKDIR`, `CMD`, `ENTRYPOINT`.
+## Additional Explanations and Tips
+- Git uses **snapshots**, not diffs.
+- Commit often with meaningful messages.
+- Use `.gitignore` for excluding files.
 
-### 💡 Additional Explanations
+## Essential Git Commands (Expanded)
 
-* Images = blueprints
-* Containers = running instances
-* Volumes provide persistent data
-* Use Docker Hub for sharing images
-
-### 🧰 Advanced Docker Commands
-
-| Command                        | Description               |
-| ------------------------------ | ------------------------- |
-| `docker run -d -p 80:80 nginx` | Detached Nginx on port 80 |
-| `docker exec -it <id> sh`      | Shell access              |
-| `docker volume create vol`     | Create volume             |
-| `docker network ls`            | List networks             |
-
-> Tip: Use `docker system prune` to clean unused images and containers.
-
----
-
-## 🧩 Lab 8 — Docker Compose
-
-### 🔑 Key Concepts
-
-* `docker-compose.yml` defines multi-container apps
-* Commands: `up`, `down`, `build`, `logs`, `ps`
-* Supports networking, environment variables, scaling
-
-### 💡 Additional Tips
-
-* Use **healthchecks** for reliable startup order
-* Common version: `'3.8'`
-* Shared volumes/networks at top-level
-
-### Example
-
-```yaml
-services:
-  db:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: example
-```
-
-> Tip: `docker-compose up --scale frontend=3` enables horizontal scaling.
+| Command | Description | Example |
+|---------|-------------|---------|
+| git init | Initialize repo | git init |
+| git clone | Clone repo | git clone URL |
+| git add | Stage changes | git add . |
+| git commit | Commit changes | git commit -m "msg" |
+| git status | Status | git status |
+| git log | View history | git log --oneline --graph |
+| git branch | Manage branches | git branch new |
+| git checkout | Switch branches | git checkout main |
+| git merge | Merge branches | git merge feature |
+| git pull | Fetch + merge | git pull origin main |
+| git push | Push changes | git push -u origin main |
+| git remote | Manage remotes | git remote add origin URL |
+| git diff | Show changes | git diff HEAD |
+| git reset | Unstage/reset | git reset HEAD file |
+| git rebase | Rebase commits | git rebase main |
+| git stash | Stash changes | git stash |
+| git tag | Tag commits | git tag v1.0 |
+| git blame | Who changed what | git blame file |
+| git bisect | Find bugs | git bisect start |
 
 ---
 
-## 🌐 Lab 10 — Hosts and Services
+# Lab 5: Git in VS Code
 
-### 🔑 Key Concepts
+## Key Concepts
+- Clone from **Command Palette**.
+- Staging via **+ button**.
+- Sync for push/pull.
+- Branch management via status bar.
 
-* Host types: shared, VPS, dedicated, cloud (IaaS)
-* VPS = isolated but shared resources
-* Cloud = scalable pay-as-you-go
+## Useful VS Code Git Shortcuts/Commands
 
-### Comparison Table
+| Shortcut/Command | Description |
+|------------------|-------------|
+| Ctrl+Shift+P > Git: Clone | Clone repo |
+| Source Control > Initialize | Init repo |
+| + icon | Stage changes |
+| Commit button | Commit |
+| Sync Changes | Push/Pull |
+| Branch indicator | Branches |
+| Ctrl+Shift+G | Open Source Control |
+| Git: Pull | Pull |
+| Git: Push | Push |
+| Git: Merge | Merge |
+| Git: Stash | Stash |
+| Conflict tools | Resolve conflicts |
 
-| Type       | Control  | Cost     | Example      |
-| ---------- | -------- | -------- | ------------ |
-| Shared     | Low      | Low      | GoDaddy      |
-| VPS        | Medium   | Medium   | DigitalOcean |
-| Dedicated  | High     | High     | OVH          |
-| Cloud/IaaS | Flexible | Variable | AWS EC2      |
+---
+
+# Lab 7: Docker
+
+## Key Concepts
+- Docker: Containerization for consistent environments.
+- Images = blueprints; containers = instances.
+
+## Essential Docker Commands (Expanded)
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| docker --version | Check version | |
+| docker info | System info | |
+| docker pull | Pull image | docker pull nginx |
+| docker images | List images | |
+| docker rmi | Remove image | docker rmi nginx |
+| docker build | Build image | docker build -t myimage . |
+| docker run | Run container | docker run -d -p 80:80 nginx |
+| docker ps | List containers | docker ps -a |
+| docker start/stop | Control containers | docker start id |
+| docker rm | Remove container | docker rm id |
+| docker exec | Execute inside | docker exec -it id sh |
+| docker logs | View logs | docker logs id |
+| docker inspect | Details | docker inspect id |
+| docker stats | Usage | docker stats |
+| docker volume | Manage volumes | docker volume create vol |
+| docker network | Manage networks | docker network ls |
+| docker system prune | Clean up | docker system prune -a |
+| docker login | Login | docker login |
+| docker push | Push image | docker push myimage |
+| docker tag | Tag image | docker tag image newtag |
 
 ---
 
-## 🚀 Lab 11 — CI/CD, GitHub Actions, Vercel Deployment
+# Lab 8: Docker Compose
 
-### 🔑 Key Concepts
+## Key Concepts
+- Manages multi-container apps.
+- Declarative, networked, scalable.
 
-* CI = automated testing/build on push
-* CD = automated deployment
-* GitHub Actions uses YAML workflows
-* Vercel automatically deploys web apps from GitHub
+## Essential Docker Compose Commands
 
-### 💡 Additional Notes
-
-* Actions are free on public repos
-* Vercel is great for Next.js and static sites
-* Use repository secrets for API keys
-
-### Example (Extended)
-
-```yaml
-- name: Deploy
-  run: vercel --prod
-```
+| Command | Description | Example |
+|---------|-------------|---------|
+| docker compose up | Start | docker compose up -d |
+| docker compose down | Stop/remove | docker compose down -v |
+| docker compose build | Build | |
+| docker compose ps | List | |
+| docker compose logs | Logs | docker compose logs -f |
+| docker compose exec | Execute | docker compose exec service sh |
+| docker compose config | Validate | |
+| docker compose restart | Restart | |
+| docker compose run | One-off | |
+| docker compose scale | Scale | docker compose up --scale frontend=3 |
+| docker compose pull | Pull images | |
+| docker compose push | Push images | |
+| docker compose version | Version | |
 
 ---
+
+# Lab 10: Hosts and Services
+
+## Key Concepts
+- Host: machine providing resources.
+- Types: Shared, VPS, Dedicated, Cloud/IaaS.
+
+## Comparison Table
+
+| Type | Control | Cost | Example |
+|------|---------|------|---------|
+| Shared | Low | Low | GoDaddy |
+| VPS | Medium | Medium | DigitalOcean |
+| Dedicated | High | High | OVH |
+| Cloud/IaaS | Flexible | Pay-as-you-go | AWS EC2 |
+
+---
+
+# Lab 11: CI/CD, GitHub Actions, and Vercel Deployment
+
+## Key Concepts
+- CI/CD automates integrate/build/deploy.
+- GitHub Actions uses YAML workflows.
+- Vercel supports auto-deployment.
+
+## Essential GitHub Actions Workflow Syntax
+
+| Key | Description | Example |
+|-----|-------------|---------|
+| `on:` | Triggers | on: [push, pull_request] |
+| `jobs:` | Define jobs | jobs: build |
+| `steps:` | Steps inside job | |
+| `run:` | Shell commands | run: npm install |
+| `env:` | Environment vars | |
+| `if:` | Condition | |
+| `with:` | Inputs | |
+| echo | Output text | echo "Hello" |
+| ::group:: | Group logs | |
+| ::debug:: | Debug logs | |
+
+---
+**Tip:** For Vercel: link repo → auto deploy.  
+Use `vercel --prod` in workflows if needed.
